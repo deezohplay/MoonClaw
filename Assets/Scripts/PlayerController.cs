@@ -1,73 +1,95 @@
 using UnityEngine;
-using UnityEngine.UI; // For button functionality
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;        // Speed of character movement
-    public float jumpForce = 10f;      // Force of the character's jump
-    public Transform groundCheck;     // Transform to check if the character is on the ground
-    public float groundCheckRadius = 0.2f; // Radius of the ground check
-    public LayerMask groundLayer;     // Layer considered as ground
+    [SerializeField] float moveSpeed = 7f;
+    [SerializeField] float jumpForce = 15f;
+    [SerializeField] float groundCheckRadius = 0.2f;
 
-    private Rigidbody2D rb;
-    private bool isGrounded;
-    private SpriteRenderer spriteRenderer;
+    public LayerMask groundLayer;
+    public Transform groundCheck;
 
-    // Buttons for movement
-    public Button leftButton;
-    public Button rightButton;
-    public Button jumpButton;
+    float jumpTime;
+    float jumpHoldTime;
 
-    private float moveDirection = 0f; // Direction to move (-1 for left, 1 for right, 0 for none)
+    float xInput;
+
+    Rigidbody2D rb;
+
+    bool isJumping;
+    bool isFacingRight;
+
+    bool jump;
+
+    bool isGrounded;
+    bool prreviuoslyGrounded;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        isFacingRight = true;
     }
 
     void Update()
     {
-        // Check if the character is on the ground
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-        // Apply movement
-        // Flip the character's sprite based on movement direction
-        if (moveDirection < 0)
+        if(jump && !isJumping)
         {
-            spriteRenderer.flipX = true;
-             // Apply movement
-            rb.linearVelocity = new Vector2(moveDirection * moveSpeed, rb.linearVelocity.y);
-        }
-        else if (moveDirection > 0)
-        {
-            spriteRenderer.flipX = false;
-             // Apply movement
-            rb.linearVelocity = new Vector2(moveDirection * moveSpeed, rb.linearVelocity.y);
+            jump = false;
+            isJumping = true;
         }
     }
 
-    public void MoveLeft()
+    void FixedUpdate()
     {
-        moveDirection = -1f;
-    }
+        rb.linearVelocity = new Vector2(xInput*moveSpeed,rb.linearVelocity.y);
+        
+        //handles the player
+        if(xInput < 0 && isFacingRight)
+        {
+            FlipPlayer();
+        }else if(xInput > 0 && !isFacingRight)
+        {
+            FlipPlayer();
+        }
 
-    public void MoveRight()
-    {
-        moveDirection = 1f;
-    }
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
 
-    public void Jump()
-    {
-        if (isGrounded)
+        if(!isGrounded && isJumping)
+        {
+            isJumping = false;
+            return;
+        }
+        if(isGrounded && isJumping)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            isJumping = false;
         }
     }
 
+    void FlipPlayer()
+    {
+        isFacingRight = !isFacingRight;
+        Vector2 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale; 
+    }
+
+    public void HorizontalInput(float value)
+    {
+        xInput = value;
+    }
+
+    public void JumpInput()
+    {
+        jump = true;
+    }
     void OnDrawGizmos()
     {
-        // Draw ground check radius in editor for visualization
+         // Draw ground check radius in editor for visualization
         if (groundCheck != null)
         {
             Gizmos.color = Color.red;
