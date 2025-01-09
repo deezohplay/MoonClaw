@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     bool jump;
 
     bool isGrounded;
-    bool prreviuoslyGrounded;
+    bool startGame;
 
     private void Awake()
     {
@@ -32,41 +32,46 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isFacingRight = true;
+        startGame = false;
     }
 
     void Update()
     {
-        if(jump && !isJumping)
-        {
-            jump = false;
-            isJumping = true;
+        if(startGame == true){
+            if(jump && !isJumping)
+            {
+                jump = false;
+                isJumping = true;
+            }
         }
     }
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(xInput*moveSpeed,rb.linearVelocity.y);
-        
-        //handles the player
-        if(xInput < 0 && isFacingRight)
-        {
-            FlipPlayer();
-        }else if(xInput > 0 && !isFacingRight)
-        {
-            FlipPlayer();
-        }
+        if(startGame == true){
+            rb.linearVelocity = new Vector2(xInput*moveSpeed,rb.linearVelocity.y);
+            
+            //handles the player
+            if(xInput < 0 && isFacingRight)
+            {
+                FlipPlayer();
+            }else if(xInput > 0 && !isFacingRight)
+            {
+                FlipPlayer();
+            }
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
 
-        if(!isGrounded && isJumping)
-        {
-            isJumping = false;
-            return;
-        }
-        if(isGrounded && isJumping)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            isJumping = false;
+            if(!isGrounded && isJumping)
+            {
+                isJumping = false;
+                return;
+            }
+            if(isGrounded && isJumping)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                isJumping = false;
+            }
         }
     }
 
@@ -95,5 +100,9 @@ public class PlayerController : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
+    }
+    public void StartGame()
+    {
+        startGame = true;
     }
 }
