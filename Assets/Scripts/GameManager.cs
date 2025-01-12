@@ -7,6 +7,11 @@ public class GameManager : MonoBehaviour
     PlayerController playerController;
     private float startTime;
     public TextMeshProUGUI timerText;
+
+    private void Awake()
+    {
+        playerController = FindFirstObjectByType<PlayerController>();
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
