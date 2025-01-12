@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     private float startTime;
+    public Text timerText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
     {
         float t = Time.time - startTime;
         string minutes = ((int) t / 60).ToString();
-        string seconds = (t % 60).ToString();
+        string seconds = (t % 60).ToString("f2");
+        timerText.text = minutes + ":" + seconds;
     }
 }
