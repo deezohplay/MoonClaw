@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     bool jump;
 
     bool isGrounded;
-    bool startGame;
+    public bool startGame;
 
     private void Awake()
     {
