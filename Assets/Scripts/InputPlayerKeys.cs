@@ -11,6 +11,7 @@ public class InputPlayerKeys : MonoBehaviour
     public void OnLeftPressed()
     {
         playerController.HorizontalInput(-1f);
+        Debug.Log("Left");
     }
     public void OnLeftReleased()
     {
