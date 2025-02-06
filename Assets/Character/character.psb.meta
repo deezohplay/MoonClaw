@@ -3548,7 +3548,7 @@ ScriptedImporter:
     - {x: 23, y: 24}
     tessellationDetail: 0
     uvTransform: {x: 1720, y: 7578}
-    spritePosition: {x: 2838, y: 693}
+    spritePosition: {x: 2670, y: 693}
   - name: body
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -4871,7 +4871,7 @@ ScriptedImporter:
     - {x: 23, y: 24}
     tessellationDetail: 0
     uvTransform: {x: 2405, y: 7578}
-    spritePosition: {x: 2791, y: 831}
+    spritePosition: {x: 2623, y: 831}
   - name: coart 2 L
     originalName: 
     pivot: {x: 0.5, y: 0.5}
