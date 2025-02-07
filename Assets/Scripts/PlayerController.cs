@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Transform groundCheck;
 
+    public Animator x_Animator;
+
     float jumpTime;
     float jumpHoldTime;
 
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         isFacingRight = true;
         startGame = false;
+        x_Animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -42,6 +45,7 @@ public class PlayerController : MonoBehaviour
             {
                 jump = false;
                 isJumping = true;
+                  x_Animator.SetTrigger("Jump");
             }
         }
     }
