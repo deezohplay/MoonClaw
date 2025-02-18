@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
             {
                 jump = false;
                 isJumping = true;
-                  x_Animator.SetTrigger("Jump");
             }
         }
     }
@@ -59,9 +58,11 @@ public class PlayerController : MonoBehaviour
             if(xInput < 0 && isFacingRight)
             {
                 FlipPlayer();
+               // x_Animator.SetTrigger("RunA");
             }else if(xInput > 0 && !isFacingRight)
             {
                 FlipPlayer();
+               // x_Animator.SetTrigger("RunA");
             }
 
             isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
@@ -90,6 +91,12 @@ public class PlayerController : MonoBehaviour
     public void HorizontalInput(float value)
     {
         xInput = value;
+        if(xInput != 0)
+        {
+            x_Animator.SetTrigger("RunA");
+        }else{
+            x_Animator.SetTrigger("IdleA");
+        }
     }
 
     public void JumpInput()

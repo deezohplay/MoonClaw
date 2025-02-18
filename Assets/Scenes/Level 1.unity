@@ -954,6 +954,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.122789
       objectReference: {fileID: 0}
+    - target: {fileID: 4713996870129368892, guid: 36f559761e379794ba6737dc05ceacbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.44278
+      objectReference: {fileID: 0}
     - target: {fileID: 5407887516437199904, guid: 36f559761e379794ba6737dc05ceacbe, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.060756
@@ -1047,6 +1051,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   groundCheck: {fileID: 438396656}
+  x_Animator: {fileID: 0}
   startGame: 0
 --- !u!50 &679035423
 Rigidbody2D:
@@ -2208,7 +2213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1613174431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2562,7 +2567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1813835850
 SpriteRenderer:
   m_ObjectHideFlags: 0
